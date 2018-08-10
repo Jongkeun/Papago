@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <TextBox x:Name="txtInput" HorizontalAlignment="Left" Height="248" Margin="10,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="414" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="248" Margin="10,391,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="414" Grid.ColumnSpan="2"/>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="86,86,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnTranslate" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="86,86,0,0" VerticalAlignment="Top" Width="120" Click="btnTranslate_Click"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="120"/>
 
