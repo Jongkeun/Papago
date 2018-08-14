@@ -33,10 +33,10 @@ namespace Papago
         private void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://openapi.naver.com");
+            client.BaseAddress = new Uri(PDefine.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("X-Naver-Client-Id", "id");
-            client.DefaultRequestHeaders.Add("X-Naver-Client-Secret", "screte");
+            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_ID, "id");
+            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_SCRETE, "screte");
             Test(client);
 
         }
@@ -46,7 +46,7 @@ namespace Papago
             {
                 new KeyValuePair<string, string>("query", txtInput.Text)
             });
-            var result = await client.PostAsync("/v1/papago/detectLangs", content);
+            var result = await client.PostAsync(PDefine.DETECT_API, content);
             string resultContent = await result.Content.ReadAsStringAsync();
             //return resultContent;
             Console.Write(resultContent);
