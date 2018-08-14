@@ -30,27 +30,10 @@ namespace Papago
             InitializeComponent();
         }
 
-        private void btnTranslate_Click(object sender, RoutedEventArgs e)
+        private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(PDefine.BASE_URL);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_ID, "id");
-            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_SCRETE, "screte");
-            Test(client);
-
-        }
-        private async void Test(HttpClient client)
-        {
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("query", txtInput.Text)
-            });
-            var result = await client.PostAsync(PDefine.DETECT_API, content);
-            string resultContent = await result.Content.ReadAsStringAsync();
-            //return resultContent;
-            Console.Write(resultContent);
-            txtOutput.Text = resultContent;
+            PapagoApi api = new PapagoApi();
+            txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
         }
     }
 }
