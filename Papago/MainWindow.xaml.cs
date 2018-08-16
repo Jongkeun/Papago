@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
+using StringEx;
 
 namespace Papago
 {
@@ -49,12 +50,12 @@ namespace Papago
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
             txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
-
         }
 
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
+            if(txtInput.Text.Trim().IsNullOrEmpty())
+                txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
         }
     }
 }
