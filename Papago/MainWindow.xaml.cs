@@ -25,14 +25,29 @@ namespace Papago
     /// </summary>
     public partial class MainWindow : Window
     {
+        PapagoApi api = new PapagoApi();
         public MainWindow()
         {
             InitializeComponent();
+            SetKey();
         }
-
+        /// <summary>
+        /// set API private id and secret key.
+        /// </summary>
+        private void SetKey()
+        {
+            string key, pwd;
+            uint nSize = 260;
+            StringBuilder sb = new StringBuilder(260); sb.Clear();
+            NativeMethods.GetPrivateProfileString(PDefine.APP_NAME, "ID", string.Empty, sb, nSize, PDefine.CONFIGURATION);
+            key = sb.ToString(); sb.Clear();
+            NativeMethods.GetPrivateProfileString(PDefine.APP_NAME, "SECRET", string.Empty, sb, nSize, PDefine.CONFIGURATION);
+            pwd = sb.ToString(); sb.Clear();
+            //set API private id and secret key.
+            api.SetKey(key, pwd);
+        }
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            PapagoApi api = new PapagoApi();
             txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
         }
     }
