@@ -32,9 +32,8 @@ namespace Papago
             InitializeComponent();
             SetKey();
         }
-        /// <summary>
-        /// set API private id and secret key.
-        /// </summary>
+
+        // set API private id and secret key.
         private void SetKey()
         {
             string key, pwd;
@@ -47,11 +46,16 @@ namespace Papago
             //set API private id and secret key.
             api.SetKey(key, pwd);
         }
+
+        // clicking a translation button.
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
+            string lang = await api.fnDetectLnaguage(txtInput.Text);
+            Console.WriteLine(lang);
+            txtOutput.Text = await api.fnTranslateLanguage(txtInput.Text);
         }
 
+        //
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(txtInput.Text.Trim().IsNullOrEmpty())

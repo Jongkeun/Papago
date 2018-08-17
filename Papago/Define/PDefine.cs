@@ -16,6 +16,7 @@ namespace Papago
 
         public static string BASE_URL = "https://openapi.naver.com";
         public static string DETECT_API = "/v1/papago/detectLangs";
+        public static string TRANSLATE_NMT_API = "/v1/papago/n2mt";
 
         public static string X_HEADER_ID= "X-Naver-Client-Id";
         public static string X_HEADER_SCRETE = "X-Naver-Client-Secret";
