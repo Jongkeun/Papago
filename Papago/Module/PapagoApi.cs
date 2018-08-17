@@ -10,21 +10,17 @@ namespace Papago
 {
     class PapagoApi
     {
-        private string strKey = string.Empty;
-        private string strPwd = string.Empty;
+        HttpClient client = new HttpClient();
 
         public void SetKey(string key, string password)
         {
-            this.strKey = key;
-            this.strPwd = password;
+            client.BaseAddress = new Uri(PDefine.BASE_URL);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_ID, key);
+            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_SCRETE, password);
         }
         public async Task<string> fnDetectLnaguage(string inputData)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(PDefine.BASE_URL);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_ID, this.strKey);
-            client.DefaultRequestHeaders.Add(PDefine.X_HEADER_SCRETE, this.strPwd);
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("query", inputData)
