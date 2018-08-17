@@ -58,7 +58,7 @@ namespace Papago
         //
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txtInput.Text.Trim().IsNullOrEmpty())
+            if(!txtInput.Text.Trim().IsNullOrEmpty())
                 txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
         }
     }
