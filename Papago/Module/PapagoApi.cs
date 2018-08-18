@@ -43,8 +43,8 @@ namespace Papago
             });
             var result = await client.PostAsync(PDefine.TRANSLATE_NMT_API, content);
             string strJson = result.Content.ReadAsStringAsync().Result;
-            //dynamic json = JObject.Parse(strJson);
-            return strJson;
+            TranslateNMTRsp response = JsonConvert.DeserializeObject<TranslateNMTRsp>(strJson);
+            return response.message != null ? response.message.result.translatedText : strJson;
         }
     }
 }
