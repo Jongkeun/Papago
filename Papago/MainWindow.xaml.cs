@@ -55,11 +55,25 @@ namespace Papago
             txtOutput.Text = await api.fnTranslateLanguage(txtInput.Text);
         }
 
-        //
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(!txtInput.Text.Trim().IsNullOrEmpty())
                 txtOutput.Text = await api.fnDetectLnaguage(txtInput.Text);
+        }
+
+        private void txtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key== Key.Enter && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                // translate when you press ENTER key.
+                btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+            else if (e.Key == Key.Enter && Keyboard.Modifiers == ModifierKeys.Shift)
+            {
+                // move to next line when you press SHIFT + ENTER keys.
+                txtInput.Text += "\r\n";
+                txtInput.CaretIndex = txtInput.Text.Length;
+            }
         }
     }
 }
