@@ -16,6 +16,8 @@
         <Button x:Name="btnTranslate" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="86,86,0,0" VerticalAlignment="Top" Width="120" Click="btnTranslate_Click"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="language : " HorizontalAlignment="Left" Margin="135,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,-0.002"/>
+        <Label x:Name="lbCurLang" Content="Korean" HorizontalAlignment="Left" Margin="193,83,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
