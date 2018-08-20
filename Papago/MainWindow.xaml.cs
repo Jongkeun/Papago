@@ -51,8 +51,7 @@ namespace Papago
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
             string lang = await api.fnDetectLnaguage(txtInput.Text);
-            Console.WriteLine(lang);
-            txtOutput.Text = await api.fnTranslateLanguage(txtInput.Text);
+            txtOutput.Text = await api.fnTranslateLanguage(txtInput.Text, lang, lang == "ko" ? "en" : "ko");
         }
 
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)

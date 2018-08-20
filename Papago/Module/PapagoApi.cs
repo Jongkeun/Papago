@@ -33,12 +33,12 @@ namespace Papago
             return response.langCode;
         }
 
-        public async Task<string> fnTranslateLanguage(string inputData)
+        public async Task<string> fnTranslateLanguage(string inputData, string from, string to)
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("source", "ko"),
-                new KeyValuePair<string, string>("target", "en"),
+                new KeyValuePair<string, string>("source", from),
+                new KeyValuePair<string, string>("target", to),
                 new KeyValuePair<string, string>("text", inputData)
             });
             var result = await client.PostAsync(PDefine.TRANSLATE_NMT_API, content);
