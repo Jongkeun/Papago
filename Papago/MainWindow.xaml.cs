@@ -56,13 +56,13 @@ namespace Papago
 
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!txtInput.Text.Trim().IsNullOrEmpty())
+            if (!txtInput.Text.Trim().IsNullOrEmpty())
                 lbCurLang.Content = await api.fnDetectLnaguage(txtInput.Text);
         }
 
         private void txtInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key== Key.Enter && Keyboard.Modifiers == ModifierKeys.None)
+            if (e.Key == Key.Enter && Keyboard.Modifiers == ModifierKeys.None)
             {
                 // translate when you press ENTER key.
                 btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
