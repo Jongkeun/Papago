@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -27,10 +28,17 @@ namespace Papago
     public partial class MainWindow : Window
     {
         PapagoApi api = new PapagoApi();
+        HotKey hotKey = new HotKey();
         public MainWindow()
         {
             InitializeComponent();
+            Init();
+        }
+
+        private void Init()
+        {
             SetKey();
+            //RegistHotKey();
         }
 
         // set API private id and secret key.
@@ -45,6 +53,12 @@ namespace Papago
             pwd = sb.ToString(); sb.Clear();
             //set API private id and secret key.
             api.SetKey(key, pwd);
+        }
+
+        private void RegistHotKey()
+        {
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            hotKey.Regist(source.Handle);
         }
 
         // clicking a translation button.
@@ -73,6 +87,30 @@ namespace Papago
                 txtInput.Text += "\r\n";
                 txtInput.CaretIndex = txtInput.Text.Length;
             }
+        }
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+            RegistHotKey();
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                case PDefine.WM_HOTKEY:
+                    Console.WriteLine("open");
+                    break;
+            }
+            return IntPtr.Zero;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            hotKey.UnRegist(source.Handle);
         }
     }
 }
