@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using StringEx;
+using NHotkey;
 using NHotkey.Wpf;
 
 namespace Papago
@@ -29,7 +30,7 @@ namespace Papago
     public partial class MainWindow : Window
     {
         PapagoApi api = new PapagoApi();
-        HotKey hotKey = new HotKey();
+        //HotKey hotKey = new HotKey();
         public MainWindow()
         {
             InitializeComponent();
@@ -39,7 +40,13 @@ namespace Papago
         private void Init()
         {
             SetKey();
-            //RegistHotKey();
+            HotkeyManager.HotkeyAlreadyRegistered += HotkeyManager_HotkeyAlreadyRegistered;
+            RegistHotKey();
+        }
+
+        private void HotkeyManager_HotkeyAlreadyRegistered(object sender, HotkeyAlreadyRegisteredEventArgs e)
+        {
+            MessageBox.Show(string.Format("The hotkey {0} is already registered by another application", e.Name));
         }
 
         // set API private id and secret key.
@@ -58,8 +65,11 @@ namespace Papago
 
         private void RegistHotKey()
         {
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            hotKey.Regist(source.Handle);
+            try
+            {
+               HotkeyManager.Current.AddOrReplace("ShowUp", Key.Z, ModifierKeys.Control | ModifierKeys.Alt, ShowUp);
+            }
+            catch (Exception ex) { }
         }
 
         // clicking a translation button.
@@ -89,29 +99,16 @@ namespace Papago
                 txtInput.CaretIndex = txtInput.Text.Length;
             }
         }
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            source.AddHook(WndProc);
-            RegistHotKey();
-        }
 
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private void ShowUp(object sender, HotkeyEventArgs e)
         {
-            switch (msg)
-            {
-                case PDefine.WM_HOTKEY:
-                    Console.WriteLine("open");
-                    break;
-            }
-            return IntPtr.Zero;
+            this.Show();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            hotKey.UnRegist(source.Handle);
+            //HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            //hotKey.UnRegist(source.Handle);
         }
     }
 }

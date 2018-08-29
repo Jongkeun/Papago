@@ -19,4 +19,8 @@
         <Label x:Name="lbCurLang" Content="Korean" HorizontalAlignment="Left" Margin="130,83,0,0" VerticalAlignment="Top"/>
 
     </Grid>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+Alt+Z" Command="{Binding ShowUp}"
+                    HotkeyManager.RegisterGlobalHotkey="True" />
+    </Window.InputBindings>
 </Window>
