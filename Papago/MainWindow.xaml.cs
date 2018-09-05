@@ -43,6 +43,9 @@ namespace Papago
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Init();
+
+            //set focus to input box
+            this.txtInput.Focus();
         }
 
         // set API private id and secret key.
