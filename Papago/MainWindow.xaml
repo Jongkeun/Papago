@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Papago"
         mc:Ignorable="d"
-        Title="Papago" Height="732.12" Width="441.943">
+        Title="Papago" Height="732.12" Width="441.943" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="109*"/>
