@@ -19,8 +19,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using StringEx;
-using NHotkey;
-using NHotkey.Wpf;
 
 namespace Papago
 {
@@ -30,23 +28,21 @@ namespace Papago
     public partial class MainWindow : Window
     {
         PapagoApi api = new PapagoApi();
-        //HotKey hotKey = new HotKey();
+        Hotkey hotKey;
         public MainWindow()
         {
             InitializeComponent();
-            Init();
         }
 
         private void Init()
         {
             SetKey();
-            HotkeyManager.HotkeyAlreadyRegistered += HotkeyManager_HotkeyAlreadyRegistered;
             RegistHotKey();
         }
 
-        private void HotkeyManager_HotkeyAlreadyRegistered(object sender, HotkeyAlreadyRegisteredEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(string.Format("The hotkey {0} is already registered by another application", e.Name));
+            Init();
         }
 
         // set API private id and secret key.
@@ -65,11 +61,13 @@ namespace Papago
 
         private void RegistHotKey()
         {
-            try
-            {
-               HotkeyManager.Current.AddOrReplace("ShowUp", Key.Z, ModifierKeys.Control | ModifierKeys.Alt, ShowUp);
-            }
-            catch (Exception ex) { }
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            hotKey = new Hotkey(Modifiers.Ctrl | Modifiers.Shift, Keys.A, this, registerImmediately: true);
+            hotKey.HotkeyPressed += ((sender, e) => {
+                this.WindowState = WindowState.Normal;
+                this.Activate();
+                this.txtInput.Focus();
+            });
         }
 
         // clicking a translation button.
@@ -100,15 +98,9 @@ namespace Papago
             }
         }
 
-        private void ShowUp(object sender, HotkeyEventArgs e)
-        {
-            this.Show();
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            //hotKey.UnRegist(source.Handle);
+            hotKey.Dispose();
         }
     }
 }

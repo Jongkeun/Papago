@@ -22,6 +22,6 @@ namespace Papago
         public static string X_HEADER_SCRETE = "X-Naver-Client-Secret";
 
         public const int OPEN = 31197;
-        public const int WM_HOTKEY = 0x0312;
+        public const int WM_HOTKEY_MSG_ID = 0x0312;
     }
 }

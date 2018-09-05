@@ -66,7 +66,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Define\PResponse.cs" />
-    <Compile Include="Module\HotKey.cs" />
+    <Compile Include="Module\Hotkey\Constants.cs" />
+    <Compile Include="Module\Hotkey\Hotkey.cs" />
+    <Compile Include="Module\Hotkey\HotkeyEventArgs.cs" />
+    <Compile Include="Module\Hotkey\HotkeyException.cs" />
+    <Compile Include="Module\Hotkey\HotkeyInfo.cs" />
     <Compile Include="Util\NativeMethods.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
