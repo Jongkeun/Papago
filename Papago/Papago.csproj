@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Define\PLangType.cs" />
     <Compile Include="Define\PResponse.cs" />
     <Compile Include="Module\Hotkey\Constants.cs" />
     <Compile Include="Module\Hotkey\Hotkey.cs" />
