@@ -64,7 +64,6 @@ namespace Papago
 
         private void RegistHotKey()
         {
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             hotKey = new Hotkey(Modifiers.Ctrl | Modifiers.Shift, Keys.A, this, registerImmediately: true);
             hotKey.HotkeyPressed += ((sender, e) => {
                 if(this.IsActive)
