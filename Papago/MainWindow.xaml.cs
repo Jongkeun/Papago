@@ -67,9 +67,16 @@ namespace Papago
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             hotKey = new Hotkey(Modifiers.Ctrl | Modifiers.Shift, Keys.A, this, registerImmediately: true);
             hotKey.HotkeyPressed += ((sender, e) => {
-                this.WindowState = WindowState.Normal;
-                this.Activate();
-                this.txtInput.Focus();
+                if(this.WindowState == WindowState.Normal)
+                {
+                    this.WindowState = WindowState.Minimized;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.Activate();
+                    this.txtInput.Focus();
+                }
             });
         }
 
