@@ -76,6 +76,7 @@ namespace Papago
                     this.WindowState = WindowState.Normal;
                     this.Activate();
                     this.txtInput.Focus();
+                    PasteClipboard();
                 }
             });
         }
@@ -111,6 +112,12 @@ namespace Papago
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             hotKey.Dispose();
+        }
+
+        private void PasteClipboard()
+        {
+            txtInput.Text = Clipboard.GetText();
+            txtInput.SelectionStart = txtInput.Text.Length;
         }
     }
 }
