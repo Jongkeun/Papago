@@ -77,6 +77,8 @@ namespace Papago
                     this.Activate();
                     this.txtInput.Focus();
                     PasteClipboard();
+                    // translate when you press ENTER key.
+                    btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 }
             });
         }
