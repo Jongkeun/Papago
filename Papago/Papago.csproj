@@ -112,9 +112,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\papagoIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\papago.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
