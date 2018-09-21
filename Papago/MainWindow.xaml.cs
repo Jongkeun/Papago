@@ -30,6 +30,9 @@ namespace Papago
         PapagoApi api = new PapagoApi();
         PLangType Lang = new PLangType();
         Hotkey hotKey;
+        System.Windows.Forms.NotifyIcon ni;
+        bool isClose = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,8 +42,31 @@ namespace Papago
         {
             SetKey();
             RegistHotKey();
+            NotifyIcon();
         }
 
+        private void NotifyIcon()
+        {
+            System.Windows.Forms.ContextMenu conMenu = new System.Windows.Forms.ContextMenu();
+            System.Windows.Forms.MenuItem mItem = new System.Windows.Forms.MenuItem();
+            ni = new System.Windows.Forms.NotifyIcon();
+            ni.Icon = Properties.Resources.papago;
+            ni.Visible = false;
+            ni.DoubleClick +=
+                delegate (object sender, EventArgs args)
+                {
+                    SetVisible(true);
+                };
+
+            mItem.Text = "Exit";
+            mItem.Click += new EventHandler((sender,e) =>
+            {
+                isClose = true;
+                this.Close();
+            });
+            conMenu.MenuItems.Add(mItem);
+            ni.ContextMenu = conMenu;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Init();
@@ -69,13 +95,11 @@ namespace Papago
             hotKey.HotkeyPressed += ((sender, e) => {
                 if(this.IsActive)
                 {
-                    this.WindowState = WindowState.Minimized;
+                    SetVisible(false);
                 }
                 else
                 {
-                    this.WindowState = WindowState.Normal;
-                    this.Activate();
-                    this.txtInput.Focus();
+                    SetVisible(true);
                     PasteClipboard();
                     // translate when you press ENTER key.
                     btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -113,13 +137,39 @@ namespace Papago
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            hotKey.Dispose();
+            if (!isClose)
+            {
+                ni.Visible = true;
+                SetVisible(false);
+                e.Cancel = true;
+            }
         }
 
         private void PasteClipboard()
         {
             txtInput.Text = Clipboard.GetText();
             txtInput.SelectionStart = txtInput.Text.Length;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            hotKey.Dispose();
+            ni.Visible = false;
+
+        }
+
+        private void SetVisible(bool isVisible)
+        {
+            if (isVisible)
+            {
+                this.WindowState = WindowState.Normal;
+                this.Activate();
+                this.txtInput.Focus();
+            }
+            else
+            {
+                this.WindowState = WindowState.Minimized;
+            }
         }
     }
 }
