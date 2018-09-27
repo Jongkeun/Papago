@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Define\PLangType.cs" />
     <Compile Include="Define\PResponse.cs" />
+    <Compile Include="GlobalValues.cs" />
     <Compile Include="Module\Hotkey\Constants.cs" />
     <Compile Include="Module\Hotkey\Hotkey.cs" />
     <Compile Include="Module\Hotkey\HotkeyEventArgs.cs" />
@@ -109,7 +110,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\papago.ico" />

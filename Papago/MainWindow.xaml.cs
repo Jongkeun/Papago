@@ -27,11 +27,7 @@ namespace Papago
     /// </summary>
     public partial class MainWindow : Window
     {
-        PapagoApi api = new PapagoApi();
-        PLangType Lang = new PLangType();
-        Hotkey hotKey;
-        System.Windows.Forms.NotifyIcon ni;
-        bool isClose = false;
+        GlobalValues global = new GlobalValues();        
 
         public MainWindow()
         {
@@ -49,10 +45,10 @@ namespace Papago
         {
             System.Windows.Forms.ContextMenu conMenu = new System.Windows.Forms.ContextMenu();
             System.Windows.Forms.MenuItem mItem = new System.Windows.Forms.MenuItem();
-            ni = new System.Windows.Forms.NotifyIcon();
-            ni.Icon = Properties.Resources.papago;
-            ni.Visible = false;
-            ni.DoubleClick +=
+            global.nIcon = new System.Windows.Forms.NotifyIcon();
+            global.nIcon.Icon = Properties.Resources.papago;
+            global.nIcon.Visible = false;
+            global.nIcon.DoubleClick +=
                 delegate (object sender, EventArgs args)
                 {
                     SetVisible(true);
@@ -61,11 +57,11 @@ namespace Papago
             mItem.Text = "Exit";
             mItem.Click += new EventHandler((sender,e) =>
             {
-                isClose = true;
+                global.isClose = true;
                 this.Close();
             });
             conMenu.MenuItems.Add(mItem);
-            ni.ContextMenu = conMenu;
+            global.nIcon.ContextMenu = conMenu;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -86,13 +82,13 @@ namespace Papago
             NativeMethods.GetPrivateProfileString(PDefine.APP_NAME, "SECRET", string.Empty, sb, nSize, PDefine.CONFIGURATION);
             pwd = sb.ToString(); sb.Clear();
             //set API private id and secret key.
-            api.SetKey(key, pwd);
+            global.api.SetKey(key, pwd);
         }
 
         private void RegistHotKey()
         {
-            hotKey = new Hotkey(Modifiers.Ctrl | Modifiers.Shift, Keys.A, this, registerImmediately: true);
-            hotKey.HotkeyPressed += ((sender, e) => {
+            global.hotKey = new Hotkey(Modifiers.Ctrl | Modifiers.Shift, Keys.A, this, registerImmediately: true);
+            global.hotKey.HotkeyPressed += ((sender, e) => {
                 if(this.IsActive)
                 {
                     SetVisible(false);
@@ -110,14 +106,14 @@ namespace Papago
         // clicking a translation button.
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            string lang = await api.fnDetectLnaguage(txtInput.Text);
-            txtOutput.Text = await api.fnTranslateLanguage(txtInput.Text, lang, lang == "ko" ? "en" : "ko");
+            string lang = await global.api.fnDetectLnaguage(txtInput.Text);
+            txtOutput.Text = await global.api.fnTranslateLanguage(txtInput.Text, lang, lang == "ko" ? "en" : "ko");
         }
 
         private async void txtInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!txtInput.Text.Trim().IsNullOrEmpty())
-                lbCurLang.Content = Lang.LangMap[await api.fnDetectLnaguage(txtInput.Text)];
+                lbCurLang.Content = global.Lang.LangMap[await global.api.fnDetectLnaguage(txtInput.Text)];
         }
 
         private void txtInput_KeyDown(object sender, KeyEventArgs e)
@@ -137,9 +133,9 @@ namespace Papago
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!isClose)
+            if (!global.isClose)
             {
-                ni.Visible = true;
+                global.nIcon.Visible = true;
                 SetVisible(false);
                 e.Cancel = true;
             }
@@ -153,8 +149,8 @@ namespace Papago
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            hotKey.Dispose();
-            ni.Visible = false;
+            global.hotKey.Dispose();
+            global.nIcon.Visible = false;
 
         }
 
