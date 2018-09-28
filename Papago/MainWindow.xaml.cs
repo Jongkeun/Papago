@@ -39,6 +39,8 @@ namespace Papago
             SetKey();
             RegistHotKey();
             NotifyIcon();
+            cboFrom.ItemsSource = global.Lang.LangMap;
+            cboTo.ItemsSource = global.Lang.LangMap;
         }
 
         private void NotifyIcon()
