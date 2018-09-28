@@ -40,7 +40,8 @@ namespace Papago
             RegistHotKey();
             NotifyIcon();
             cboFrom.ItemsSource = global.Lang.LangMap;
-            cboTo.ItemsSource = global.Lang.LangMap;
+            cboFrom.SelectedIndex = 0;
+            cboTo.ItemsSource = global.Lang.LangMap;            
         }
 
         private void NotifyIcon()
