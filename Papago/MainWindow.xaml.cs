@@ -71,6 +71,7 @@ namespace Papago
             conMenu.MenuItems.Add(mItem);
             global.nIcon.ContextMenu = conMenu;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Init();
