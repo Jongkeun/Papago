@@ -13,6 +13,7 @@ namespace Papago
 
         public PLangType()
         {
+            LangMap.Add("at", "Auto");
             LangMap.Add("ko", "Korean");
             LangMap.Add("ja", "Japanese");
             LangMap.Add("zh-cn", "Simplified Chinese");
