@@ -27,7 +27,7 @@ namespace Papago
             LangMap.Add("vi", "Vietnamese");
             LangMap.Add("id", "Indonesian");
             LangMap.Add("th", "Thai");
-            LangMap.Add("re", "Russian");
+            LangMap.Add("ru", "Russian");
             LangMap.Add("it", "Italian");
             LangMap.Add("unk", "Unknown");
         }
