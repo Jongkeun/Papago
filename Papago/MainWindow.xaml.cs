@@ -155,7 +155,7 @@ namespace Papago
         {
             if (!global.isClose)
             {
-                global.nIcon.Visible = true;
+                //global.nIcon.Visible = true;
                 SetVisible(false);
                 e.Cancel = true;
             }
@@ -178,13 +178,17 @@ namespace Papago
         {
             if (isVisible)
             {
+                global.nIcon.Visible = false;
+                this.Show();
                 this.WindowState = WindowState.Normal;
                 this.Activate();
                 this.txtInput.Focus();
             }
             else
             {
+                global.nIcon.Visible = true;
                 this.WindowState = WindowState.Minimized;
+                this.Hide();
             }
         }
 
