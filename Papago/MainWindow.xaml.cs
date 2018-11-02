@@ -116,8 +116,15 @@ namespace Papago
         // clicking a translation button.
         private async void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            string fromLang = cboFrom.SelectedIndex == 0 ? await global.api.fnDetectLnaguage(txtInput.Text) : (string)cboFrom.SelectedValue;
-            string toLang = fromLang == "ko" ? "en" : "ko";
+            // from language type
+            string fromLang = cboFrom.SelectedIndex == 0 ?
+                await global.api.fnDetectLnaguage(txtInput.Text)
+                : (string)cboFrom.SelectedValue;
+            // to language type
+            string toLang = cboTo.SelectedIndex == 0 ?
+                fromLang == "ko" ? "en" : "ko"
+                : (string)cboTo.SelectedValue;
+            // translation
             txtOutput.Text = await global.api.fnTranslateLanguage(txtInput.Text, fromLang, toLang);
         }
 
