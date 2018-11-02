@@ -14,9 +14,9 @@
         <TextBox x:Name="txtInput" Height="248" Margin="10,111,10,0" TextWrapping="Wrap" Grid.ColumnSpan="2" TextChanged="txtInput_TextChanged" KeyDown="txtInput_KeyDown" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOutput" Margin="10,403,10,50" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
         <Button x:Name="btnTranslate" Content="Translation" Grid.Column="1" HorizontalAlignment="Right" Margin="0,86,10,0" VerticalAlignment="Top" Width="120" Click="btnTranslate_Click"/>
-        <ComboBox x:Name="cboFrom" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+        <ComboBox x:Name="cboFrom" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="Value" SelectedValuePath="Key" SelectionChanged="cboFrom_SelectionChanged"/>
         <ComboBox x:Name="cboTo" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="120" DisplayMemberPath="Value" SelectedValuePath="Key"/>
-        <Label x:Name="lbCurLang" Content="Korean" HorizontalAlignment="Left" Margin="130,83,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbCurLang" Content="Korean" HorizontalAlignment="Left" Margin="130,83,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="169"/>
 
     </Grid>
 </Window>

@@ -47,6 +47,7 @@ namespace Papago
             cboFrom.ItemsSource = global.Lang.LangMap;
             cboFrom.SelectedIndex = 0;
             cboTo.ItemsSource = global.Lang.LangMap;
+            cboTo.SelectedIndex = 0;
         }
 
         private void NotifyIcon()
@@ -177,6 +178,14 @@ namespace Papago
             else
             {
                 this.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void cboFrom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cboFrom.SelectedIndex != 0)
+            {
+                lbCurLang.Content = global.Lang.LangMap[(string)cboFrom.SelectedValue];
             }
         }
     }
