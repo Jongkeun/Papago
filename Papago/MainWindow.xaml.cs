@@ -107,8 +107,11 @@ namespace Papago
                 {
                     SetVisible(true);
                     PasteClipboard();
-                    // translate when you press ENTER key.
-                    btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    if (txtInput.Text.Length < 200)
+                    {
+                        // translate when you press ENTER key.
+                        btnTranslate.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    }
                 }
             });
         }
